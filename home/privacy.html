@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="vi" data-lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const themeParam = urlParams.get('theme');
+      const savedTheme = localStorage.getItem('pm_theme');
+      const systemPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+
+      let targetTheme = 'dark';
+      if (themeParam === 'light' || themeParam === 'dark') {
+        targetTheme = themeParam;
+        localStorage.setItem('pm_theme', themeParam);
+      } else if (savedTheme === 'light' || savedTheme === 'dark') {
+        targetTheme = savedTheme;
+      } else if (systemPrefersLight) {
+        targetTheme = 'light';
+      }
+
+      document.documentElement.setAttribute('data-theme', targetTheme);
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chính Sách Quyền Riêng Tư | Plank Master: Core & Fitness</title>
+  <meta name="description" content="Chính sách quyền riêng tư và cam kết bảo vệ dữ liệu người dùng của ứng dụng Plank Master - Tuân thủ chuẩn Apple App Store, Google Play và GDPR.">
+  <link rel="icon" type="image/png" href="assets/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root,
+    html[data-theme="dark"] {
+      --bg-page: #0B1120;
+      --bg-radial: radial-gradient(circle 400px at 50% -80px, rgba(6, 182, 212, 0.14) 0%, transparent 70%);
+      --card-bg: #131D33;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(6, 182, 212, 0.3);
+      --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      --item-bg: rgba(255, 255, 255, 0.02);
+      --item-border: rgba(255, 255, 255, 0.04);
+      --header-bg: #0B1120;
+      --header-border: rgba(255, 255, 255, 0.08);
+      --footer-border: rgba(255, 255, 255, 0.08);
+
+      --cyan: #06B6D4;
+      --cyan-glow: rgba(6, 182, 212, 0.15);
+      --cyan-border: rgba(6, 182, 212, 0.2);
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.15);
+      --emerald-border: rgba(16, 185, 129, 0.3);
+      --amber: #F59E0B;
+      --amber-glow: rgba(245, 158, 11, 0.15);
+      --amber-border: rgba(245, 158, 11, 0.3);
+
+      --text-title: #FFFFFF;
+      --text-body: #94A3B8;
+      --text-sub: #64748B;
+      --text-muted: #94A3B8;
+      --btn-bg: rgba(255, 255, 255, 0.05);
+      --btn-border: rgba(255, 255, 255, 0.08);
+      --btn-hover: rgba(255, 255, 255, 0.1);
+      --guarantee-bg: rgba(239, 68, 68, 0.08);
+      --guarantee-border: rgba(239, 68, 68, 0.25);
+      --guarantee-text: #FCA5A5;
+      --highlight-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);
+      --highlight-border: rgba(16, 185, 129, 0.25);
+    }
+
+    html[data-theme="light"] {
+      --bg-page: #F8FAFC; /* Slate 50 anti-glare */
+      --bg-radial: none; /* Tắt vầng sáng mờ loang lổ */
+      --card-bg: #FFFFFF; /* Pure White card trên nền Slate 50 */
+      --card-border: #E2E8F0; /* Slate 200 */
+      --card-border-hover: rgba(8, 145, 178, 0.35);
+      --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+      --item-bg: #F8FAFC;
+      --item-border: #E2E8F0;
+      --header-bg: #FFFFFF;
+      --header-border: #E2E8F0;
+      --footer-border: #E2E8F0;
+
+      /* Accent Colors adjusted for high contrast on light background */
+      --cyan: #0891B2; /* Deep Oceanic Teal (WCAG AAA) */
+      --cyan-glow: rgba(8, 145, 178, 0.1);
+      --cyan-border: rgba(8, 145, 178, 0.25);
+      --emerald: #059669; /* Rich Emerald */
+      --emerald-glow: rgba(5, 150, 105, 0.1);
+      --emerald-border: rgba(5, 150, 105, 0.25);
+      --amber: #D97706; /* Rich Amber */
+      --amber-glow: rgba(217, 119, 6, 0.1);
+      --amber-border: rgba(217, 119, 6, 0.25);
+
+      /* Typography: Không dùng #000 đen tuyền để chống gắt mắt */
+      --text-title: #0F172A; /* Slate 900 */
+      --text-body: #475569; /* Slate 600 dịu mắt khi đọc lâu */
+      --text-sub: #64748B; /* Slate 500 */
+      --text-muted: #64748B;
+      --btn-bg: #F1F5F9;
+      --btn-border: #E2E8F0;
+      --btn-hover: #E2E8F0;
+      --guarantee-bg: rgba(239, 68, 68, 0.06);
+      --guarantee-border: rgba(239, 68, 68, 0.2);
+      --guarantee-text: #DC2626;
+      --highlight-bg: linear-gradient(135deg, rgba(5, 150, 105, 0.06) 0%, rgba(8, 145, 178, 0.04) 100%);
+      --highlight-border: rgba(5, 150, 105, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
+
+    a, p, span, li, h1, h2, h3 {
+      overflow-wrap: break-word;
+    }
+
+    a {
+      word-break: break-all;
+      overflow-wrap: anywhere;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      background-image: var(--bg-radial);
+      background-repeat: no-repeat;
+      color: var(--text-body);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation Header - Solid background so scrolled content does not bleed through */
+    header {
+      border-bottom: 1px solid var(--header-border);
+      background: var(--header-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 4px 12px var(--cyan-glow);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      color: var(--text-title);
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .theme-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--text-title);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .theme-btn:hover {
+      background: var(--btn-hover);
+      border-color: var(--cyan);
+      transform: scale(1.08);
+    }
+
+    .lang-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--text-title);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      background: var(--btn-hover);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--cyan);
+      background: var(--btn-bg);
+    }
+
+    .nav-link.active {
+      color: var(--cyan);
+      background: var(--cyan-glow);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 44px 0 28px;
+      text-align: center;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--emerald-glow);
+      border: 1px solid var(--emerald-border);
+      color: var(--emerald);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    html[data-theme="light"] .hero-title {
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: initial;
+      color: var(--text-title);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Core Commitment Box */
+    .highlight-card {
+      background: var(--highlight-bg);
+      border: 1px solid var(--highlight-border);
+      border-radius: 20px;
+      padding: 24px;
+      margin: 28px 0;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .highlight-icon {
+      font-size: 1.8rem;
+      background: var(--emerald-glow);
+      border: 1px solid var(--emerald-border);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .highlight-text h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--emerald);
+      margin-bottom: 6px;
+    }
+
+    .highlight-text p {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* Document Body */
+    .doc-content {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 36px 32px;
+      margin-bottom: 48px;
+      box-shadow: var(--card-shadow);
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section {
+      margin-bottom: 34px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-title);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--cyan);
+      background: var(--cyan-glow);
+      border: 1px solid var(--cyan-border);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .section p {
+      color: var(--text-body);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bullet-list {
+      list-style: none;
+      margin: 14px 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .bullet-item {
+      display: flex;
+      gap: 12px;
+      background: var(--item-bg);
+      border: 1px solid var(--item-border);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      color: var(--text-body);
+      align-items: flex-start;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .bullet-item > div {
+      min-width: 0;
+      flex: 1;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .bullet-item strong {
+      color: var(--text-title);
+    }
+
+    .bullet-icon {
+      color: var(--cyan);
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .contact-card .contact-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-title);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .contact-card .contact-link {
+      color: var(--cyan);
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-size: 0.9rem;
+    }
+
+    .guarantee-box {
+      background: var(--guarantee-bg);
+      border: 1px solid var(--guarantee-border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-size: 0.92rem;
+      color: var(--guarantee-text);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--footer-border);
+      padding: 36px 0;
+      margin-top: auto;
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-contact {
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+    }
+
+    .footer-contact a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Language Switching Visibility */
+    [data-lang="vi"] .lang-en,
+    [data-lang="en"] .lang-vi {
+      display: none !important;
+    }
+
+    .mobile-break {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 16px;
+        max-width: 100%;
+      }
+      .mobile-break {
+        display: inline;
+      }
+      .nav-wrapper {
+        height: 58px;
+        padding: 0 4px;
+      }
+      .brand {
+        gap: 8px;
+      }
+      .brand-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+      }
+      .brand-subtitle {
+        display: none !important;
+      }
+      .nav-controls {
+        gap: 6px;
+      }
+      .theme-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.92rem;
+      }
+      .nav-link-desktop {
+        display: none !important;
+      }
+      .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: var(--btn-bg);
+      }
+      .lang-btn {
+        padding: 5px 9px;
+        font-size: 0.75rem;
+      }
+      .hero {
+        padding: 24px 0 16px;
+      }
+      .hero-title {
+        font-size: 1.6rem;
+        line-height: 1.25;
+      }
+      .doc-content {
+        padding: 20px 16px;
+      }
+      .highlight-card {
+        flex-direction: column;
+        padding: 18px;
+      }
+      .footer-links {
+        gap: 8px 14px;
+        font-size: 0.82rem;
+      }
+      .footer-links .bullet {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/icon-512.png" alt="Plank Master Logo" class="brand-img">
+        <div>
+          <div class="brand-title">Plank Master</div>
+          <div class="brand-subtitle">Core & Fitness Timer</div>
+        </div>
+      </a>
+
+      <div class="nav-controls">
+        <a href="privacy.html" class="nav-link active nav-link-desktop">
+          <span class="lang-vi">Quyền Riêng Tư</span>
+          <span class="lang-en">Privacy</span>
+        </a>
+        <a href="terms.html" class="nav-link">
+          <span class="lang-vi">📄 Điều Khoản</span>
+          <span class="lang-en">📄 Terms</span>
+        </a>
+        <button class="theme-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối" aria-label="Toggle theme">
+          <span id="themeBtnIcon">☀️</span>
+        </button>
+        <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">
+          🌐 <span id="langBtnText">EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    <div class="hero">
+      <div class="badge-pill">
+        <span class="lang-vi">🛡️ Tuân Thủ Apple & Google Store & GDPR</span>
+        <span class="lang-en">🛡️ Apple & Google Store & GDPR Compliant</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="lang-vi">Chính Sách<br class="mobile-break"> <span style="white-space: nowrap;">Quyền Riêng Tư</span></span>
+        <span class="lang-en">Privacy Policy</span>
+      </h1>
+      <div class="hero-meta">
+        <span>📅 <span class="lang-vi">Cập nhật lần cuối: Tháng 10, 2026</span><span class="lang-en">Last updated: October 2026</span></span>
+      </div>
+    </div>
+
+    <!-- CORE COMMITMENT -->
+    <div class="highlight-card">
+      <div class="highlight-icon">🔒</div>
+      <div class="highlight-text">
+        <h3 class="lang-vi">Kiến Trúc Offline-First & Không Theo Dõi Tuyệt Đối</h3>
+        <h3 class="lang-en">Strict Offline-First & Zero Tracking Architecture</h3>
+        <p class="lang-vi">
+          Plank Master được thiết kế với triết lý tôn trọng quyền riêng tư cao nhất. Chúng tôi <strong>KHÔNG</strong> thu thập, <strong>KHÔNG</strong> theo dõi hành vi và <strong>KHÔNG BAO GIỜ</strong> bán dữ liệu cá nhân của bạn cho bất kỳ nhà môi giới dữ liệu hoặc mạng lưới quảng cáo nào.
+        </p>
+        <p class="lang-en">
+          Plank Master is built with maximum user privacy in mind. We do <strong>NOT</strong> collect, <strong>NOT</strong> track user behavior, and will <strong>NEVER</strong> sell your personal data to any marketing brokers or third-party ad networks.
+        </p>
+      </div>
+    </div>
+
+    <!-- DOCUMENT CONTENT -->
+    <article class="doc-content">
+
+      <!-- SECTION 1 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">01</span>
+          <span class="lang-vi">Thu Thập Dữ Liệu & Lưu Trữ Cục Bộ (Local Storage)</span>
+          <span class="lang-en">Data Collection & Local Storage</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Mọi dữ liệu cá nhân của bạn — bao gồm thông tin thể chất (chiều cao, cân nặng, giới tính sinh học, chỉ số BMI), giáo án gồng plank tự tạo, và toàn bộ lịch sử bấm giờ các hiệp tập — được lưu trữ <strong>hoàn toàn cục bộ trên thiết bị của bạn</strong> thông qua cơ sở dữ liệu nội bộ.
+          </p>
+          <p>
+            Chúng tôi không lưu giữ bản sao dữ liệu này trên bất kỳ máy chủ nào. Bạn có toàn quyền quản lý hoặc xóa sạch toàn bộ dữ liệu trực tiếp trong mục Cài Đặt của ứng dụng.
+          </p>
+        </div>
+        <div class="lang-en">
+          <p>
+            All of your personal fitness metrics — including weight, height, biological sex, BMI calculations, customized plank workout routines, and complete training completion logs — are stored <strong>strictly on your local device</strong> via secure offline storage.
+          </p>
+          <p>
+            We do not maintain copies of your workout data on external servers. You maintain complete control to manage or purge all app data anytime from the Settings screen.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">02</span>
+          <span class="lang-vi">Đăng Nhập Google & Đồng Bộ Đám Mây (Tùy Chọn)</span>
+          <span class="lang-en">Google Sign-In & Optional Cloud Sync</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Tính năng đồng bộ đám mây là <strong>hoàn toàn tùy chọn</strong> và chỉ được kích hoạt khi bạn chủ động nhấn đăng nhập:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">✓</span>
+              <div><strong>Định danh tài khoản:</strong> Chúng tôi chỉ nhận thông tin định danh công khai từ Google (Email, Tên đại diện, Ảnh đại diện) để xác thực bạn là chủ sở hữu dữ liệu.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔒</span>
+              <div><strong>Mã hóa đầu cuối (E2EE Zero-Knowledge):</strong> Toàn bộ chỉ số thể trạng, nhật ký tập luyện và giáo án cá nhân được bảo vệ bằng thuật toán mã hóa <strong>AES-GCM 256-bit</strong> và kiến trúc <strong>Mã hóa đầu cuối (E2EE Zero-Knowledge)</strong> với hàm dẫn xuất khóa PBKDF2 (10.000 vòng lặp) trước khi gửi lên đám mây. Máy chủ chỉ lưu trữ các khối dữ liệu mã hóa vô nghĩa, tuyệt đối không ai có thể đọc trộm hay giải mã dữ liệu của bạn.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🛡️</span>
+              <div><strong>Quyền kiểm soát sao lưu hồ sơ cá nhân:</strong> Khi bạn kích hoạt đồng bộ đám mây, tùy chọn sao lưu các chỉ số cơ thể (cân nặng, chiều cao, giới tính, tên/biệt danh) được <em>bật theo mặc định</em> và bảo vệ bằng mã hóa E2EE nhằm đảm bảo hồ sơ của bạn không bị mất hay gián đoạn khi chuyển sang thiết bị mới. Bạn có toàn quyền chủ động tắt tùy chọn này bất cứ lúc nào trong Cài Đặt. Khi tắt, các thông tin thể trạng này chỉ lưu 100% cục bộ trên thiết bị của bạn, trong khi toàn bộ thành tích thể thao (Kỷ lục cá nhân PR, tổng thời gian gồng) và lịch sử bài tập vẫn được lưu giữ an toàn trên đám mây.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">✓</span>
+              <div><strong>Mã hóa đường truyền:</strong> Mọi dữ liệu tập luyện đồng bộ được mã hóa cấp ngân hàng qua giao thức bảo mật HTTPS/TLS 1.3 và lưu trữ an toàn trên hạ tầng Supabase.</div>
+            </li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <p>
+            Cloud synchronization is <strong>entirely optional</strong> and only enabled upon explicit user request:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">✓</span>
+              <div><strong>Account Authentication:</strong> We only receive your basic public profile identifier from Google (Email, Display Name, Avatar) to establish your account ownership.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔒</span>
+              <div><strong>End-to-End Encryption (E2EE Zero-Knowledge):</strong> All body metrics, workout history, and custom routines are protected with standard <strong>AES-GCM 256-bit</strong> encryption and <strong>Zero-Knowledge E2EE</strong> architecture with PBKDF2 key derivation (10,000 iterations) before transmission. The cloud server stores only opaque encrypted blobs, ensuring zero unauthorized access.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🛡️</span>
+              <div><strong>Sovereign Body Profile Backup Control:</strong> When cloud synchronization is enabled, backup of personal body metrics (weight, height, gender, nickname) is <em>enabled by default</em> under full E2EE encryption to ensure seamless profile continuity across devices. You maintain full sovereign control to disable this backup at any time in Cloud Settings. When disabled, these body metrics remain strictly local on your device, while your athletic achievements (Personal Records - PR, total hold duration) and workout history remain safely synced to the cloud.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">✓</span>
+              <div><strong>Encrypted In-Transit:</strong> All synced workout logs are transmitted using bank-grade HTTPS/TLS 1.3 encryption and stored securely on Supabase cloud infrastructure.</div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">03</span>
+          <span class="lang-vi">Tích Hợp Trí Tuệ Nhân Tạo (AI) & Bảo Mật Quyền Riêng Tư</span>
+          <span class="lang-en">Artificial Intelligence (AI) & Privacy Protection</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Tính năng Huấn Luyện Viên AI trong Plank Master là đặc quyền dành riêng cho thành viên Premium, được thiết kế theo kiến trúc <strong>AI Trực Tiếp & Người Dùng Làm Chủ (Privacy-First / BYOK)</strong>:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">⚡</span>
+              <div><strong>Không qua máy chủ trung gian (Zero Middleware):</strong> Yêu cầu tạo giáo án và phân tích thể lực được gửi trực tiếp và an toàn từ thiết bị của bạn tới Google Gemini API bằng Khóa API do chính bạn cấu hình, hoặc thông qua tính năng tự sao chép câu lệnh (Prompt). Nhà phát triển Plank Master <strong>hoàn toàn không thiết lập máy chủ trung gian</strong> để tiếp nhận, lưu trữ hay theo dõi các dữ liệu này.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🛡️</span>
+              <div><strong>Toàn quyền kiểm soát dữ liệu:</strong> Phân tích tiến độ cơ lõi thông minh bằng AI của chính bạn. Toàn bộ dữ liệu thuộc quyền kiểm soát của bạn, nói không với máy chủ trung gian. Mã API Key được mã hóa an toàn và chỉ lưu cục bộ trên điện thoại của bạn.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🚫</span>
+              <div><strong>Cam kết không thu thập dữ liệu huấn luyện:</strong> Chúng tôi tuyệt đối không thu thập dữ liệu tập luyện của bạn để bán cho bên thứ ba hoặc sử dụng vào mục đích huấn luyện bất kỳ mô hình AI nào.</div>
+            </li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <p>
+            The AI Coach feature in Plank Master is an exclusive capability for Premium members, architected on a <strong>Privacy-First, Client-Side Direct AI model (BYOK - Bring Your Own Key)</strong>:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">⚡</span>
+              <div><strong>Zero Middleware Proxy:</strong> Workout generation prompts and fitness assessments are transmitted directly and securely from your device to Google Gemini API using your personal API key, or via manual prompt copying. Plank Master <strong>operates no intermediate servers</strong> to intercept, inspect, or log your queries.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🛡️</span>
+              <div><strong>Total Sovereign Control:</strong> Smart core progress analysis with your own AI. All data remains under your sovereign control with zero middleware. Your API Key is encrypted and stored strictly on your local device.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🚫</span>
+              <div><strong>No Training Data Harvesting:</strong> We never harvest, store, or monetize your fitness records to train artificial intelligence models.</div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION 4 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">04</span>
+          <span class="lang-vi">Minh Bạch Quyền Thiết Bị & Nguyên Tắc Tối Thiểu</span>
+          <span class="lang-en">Device Permissions & Principle of Least Privilege</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Plank Master tuân thủ triệt để nguyên tắc quyền tối thiểu (Least Privilege). Ứng dụng chỉ sử dụng các quyền hệ thống cơ bản cần thiết cho việc đếm giờ thể thao:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">⚡</span>
+              <div><strong>Rung phản hồi (Haptics):</strong> Tạo rung cảm ứng khi đếm nhịp 3-2-1, chuyển hiệp và kết thúc bài tập giúp bạn nhận biết mà không cần nhìn màn hình.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔊</span>
+              <div><strong>Phát âm thanh (Audio):</strong> Phát tiếng bíp đếm ngược, tiếng pháo hoa chúc mừng và giọng nói huấn luyện viên thể lực.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💡</span>
+              <div><strong>Giữ sáng màn hình (Screen Wake Lock):</strong> Ngăn thiết bị tự động tắt hoặc tối màn hình khi bạn đang trong hiệp gồng plank.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💾</span>
+              <div><strong>Bộ nhớ máy (Local Storage):</strong> Lưu trữ hồ sơ, lịch sử tập luyện và cài đặt âm thanh hoàn toàn offline.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🖼️</span>
+              <div><strong>Thư viện ảnh (Ảnh đại diện Avatar):</strong> Ứng dụng chỉ mở thư viện ảnh khi bạn <em>chủ động nhấn đổi ảnh đại diện</em>. Chúng tôi chỉ xử lý duy nhất bức ảnh bạn chọn để cắt ảnh và lưu cục bộ trên máy, tuyệt đối KHÔNG quét hay tải lên toàn bộ thư viện ảnh.</div>
+            </li>
+          </ul>
+          <div class="guarantee-box">
+            ⛔ CAM KẾT: Chúng tôi KHÔNG BAO GIỜ yêu cầu hay truy cập: Vị trí GPS, Danh bạ, Microphone, và KHÔNG quét ngầm thư viện ảnh của bạn.
+          </div>
+        </div>
+        <div class="lang-en">
+          <p>
+            Plank Master strictly adheres to the principle of least privilege. The app only accesses standard operating system features essential for sports timing:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">⚡</span>
+              <div><strong>Haptic Feedback:</strong> Delivers tactile vibration cues for countdowns and transitions so you can train without looking at your screen.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔊</span>
+              <div><strong>Audio Playback:</strong> Plays countdown beeps, celebratory sound effects, and coach voice prompts.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💡</span>
+              <div><strong>Screen Wake Lock:</strong> Prevents screen timeout while a plank workout set is actively running.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💾</span>
+              <div><strong>Local Storage:</strong> Stores custom routines, workout timestamps, and audio volume preferences offline.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🖼️</span>
+              <div><strong>Photo Library (Profile Avatar):</strong> The app only accesses your Photo Library when you <em>explicitly tap to select an avatar</em>. We only process the single image you choose to crop and store locally, and NEVER scan or upload your full photo library.</div>
+            </li>
+          </ul>
+          <div class="guarantee-box">
+            ⛔ GUARANTEED: We NEVER request or access your GPS Location, Contacts, Microphone, or scan your photo library in the background.
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">05</span>
+          <span class="lang-vi">Dịch Vụ Bên Thứ Ba, Thanh Toán & Mạng Lưới Quảng Cáo</span>
+          <span class="lang-en">Third-Party Services, Payments & Advertising</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Nhằm đảm bảo sự minh bạch tối đa theo tiêu chuẩn App Privacy của Apple App Store và Data Safety của Google Play Store, chúng tôi công khai các dịch vụ bên thứ ba được tích hợp trong ứng dụng:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">📢</span>
+              <div>
+                <strong>Mạng quảng cáo Google Mobile Ads (AdMob):</strong><br>
+                Ứng dụng hiển thị quảng cáo biểu ngữ (Banner) và quảng cáo video nhận thưởng (Rewarded Ads) đối với người dùng tài khoản miễn phí nhằm hỗ trợ chi phí vận hành. SDK AdMob (thuộc Google LLC) có thể xử lý các thông tin kỹ thuật như định danh thiết bị (IDFA/GAID), địa chỉ IP rút gọn và dữ liệu chẩn đoán sự cố theo <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">Chính sách bảo mật của Google</a>. Đối với người dùng tại Liên minh Châu Âu (EU) và Vương quốc Anh (UK), ứng dụng sử dụng giao diện chuẩn Google UMP (User Messaging Platform) để bạn toàn quyền quyết định đồng ý hoặc từ chối quảng cáo cá nhân hóa. Người dùng có thể nâng cấp gói Premium để loại bỏ hoàn toàn 100% quảng cáo.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💳</span>
+              <div>
+                <strong>Thanh toán Mua hàng Trong Ứng dụng (In-App Purchases & RevenueCat):</strong><br>
+                Mọi giao dịch thanh toán nâng cấp Premium được điều phối và bảo vệ trực tiếp bởi Apple In-App Purchase (trên iOS) hoặc Google Play Billing (trên Android). Chúng tôi có thể sử dụng giải pháp RevenueCat để xác thực biên lai giao dịch từ Store ở cấp độ máy chủ. Ứng dụng tuyệt đối <strong>KHÔNG</strong> thu thập, không xử lý và không lưu giữ bất kỳ thông tin số thẻ tín dụng, tài khoản ngân hàng nào của bạn.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🛡️</span>
+              <div>
+                <strong>Cam kết không sử dụng công cụ ghi màn hình / phiên truy cập:</strong><br>
+                Ứng dụng cam kết <strong>KHÔNG</strong> cài đặt bất kỳ công cụ ghi hình phiên truy cập (Session Replay tools như Hotjar, FullStory, Smartlook) và KHÔNG ghi lại thao tác màn hình của bạn. Mọi nhật ký lỗi chỉ được ghi nội bộ trên máy (Local Debug Log) để phục vụ kiểm tra kỹ thuật khi người dùng chủ động cho phép.
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <p>
+            To maintain full transparency conforming with Apple App Store Privacy Nutrition Labels and Google Play Data Safety standards, we disclose all third-party SDKs integrated into the app:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">📢</span>
+              <div>
+                <strong>Google Mobile Ads (AdMob):</strong><br>
+                The app presents banner ads and rewarded video ads for free-tier users to sustain development. The AdMob SDK (Google LLC) may process technical identifiers such as Advertising Identifiers (IDFA/GAID), coarse IP addresses, and crash telemetry governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">Google Privacy Policy</a>. For users residing within the EU and UK, the app implements Google UMP (User Messaging Platform) empowering you to grant or withhold consent for ad personalization. Upgrading to Premium completely removes all advertisements.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💳</span>
+              <div>
+                <strong>In-App Purchases & RevenueCat:</strong><br>
+                All upgrade transactions are securely handled directly by Apple In-App Purchase (iOS) or Google Play Billing (Android). We may utilize RevenueCat solely for server-side receipt validation. We <strong>NEVER</strong> access, process, or store your payment card numbers or banking credentials.
+              </div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🛡️</span>
+              <div>
+                <strong>Zero Session Recording / Screen Replay:</strong><br>
+                We do <strong>NOT</strong> embed any session replay or keystroke recording tools (e.g., FullStory, Hotjar). Any crash or diagnostics logs are held locally on the device (Local Debug Logs) and never transmitted without explicit user consent.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION 6 -->
+      <section class="section" id="delete-account">
+        <h2 class="section-title">
+          <span class="section-num">06</span>
+          <span class="lang-vi">Quyền Yêu Cầu Xóa Dữ Liệu (Chuẩn GDPR & CCPA)</span>
+          <span class="lang-en">Right to Deletion (GDPR & CCPA Compliance)</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Bạn có quyền sở hữu tuyệt đối đối với toàn bộ dữ liệu của mình:
+          </p>
+          <p>
+            - <strong>Trên máy:</strong> Bạn có thể xóa sạch toàn bộ lịch sử tập luyện, kỷ lục cá nhân bất kỳ lúc nào tại mục <em>Cài Đặt > Xóa Dữ Liệu</em>. Thao tác này sẽ dọn dẹp sạch sẽ toàn bộ database nội bộ.<br>
+            - <strong>Trên đám mây (nếu có dùng):</strong> Bạn có thể nhấn nút "Xóa Vĩnh Viễn Tài Khoản" ngay trong phần Tài Khoản Đám Mây của ứng dụng, hoặc gửi yêu cầu xóa tài khoản trực tiếp qua email <a href="mailto:plankmaster.support@gmail.com" style="color: var(--cyan);">plankmaster.support@gmail.com</a>. Dữ liệu trên server sẽ được hủy vĩnh viễn trong vòng 24 giờ.
+          </p>
+        </div>
+        <div class="lang-en">
+          <p>
+            You retain absolute ownership of all personal and fitness training data:
+          </p>
+          <p>
+            - <strong>Local Device:</strong> You can purge all logs, custom routines, and weight entries at any time via <em>Settings > Reset All Data</em>.<br>
+            - <strong>Cloud Server (if logged in):</strong> You can permanently delete your cloud account directly via the "Delete Account" button in settings, or email <a href="mailto:plankmaster.support@gmail.com" style="color: var(--cyan);">plankmaster.support@gmail.com</a>. Cloud records will be permanently erased within 24 hours.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 7 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">07</span>
+          <span class="lang-vi">Liên Hệ Nhà Phát Triển</span>
+          <span class="lang-en">Contact & Developer Inquiries</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Mọi câu hỏi, thắc mắc hoặc yêu cầu liên quan đến Chính Sách Quyền Riêng Tư và an toàn dữ liệu, vui lòng liên hệ với đội ngũ phát triển qua:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">📧</span>
+              <div>
+                <strong class="contact-label">Email Hỗ Trợ:</strong>
+                <a href="mailto:plankmaster.support@gmail.com" class="contact-link">plankmaster.support@gmail.com</a>
+              </div>
+            </li>
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">🌐</span>
+              <div>
+                <strong class="contact-label">Website:</strong>
+                <a href="https://plankmaster.github.io/home/" class="contact-link" target="_blank" rel="noopener">https://plankmaster.github.io/home/</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <p>
+            If you have any questions, feedback, or data privacy requests regarding this policy, please reach out to our team at:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">📧</span>
+              <div>
+                <strong class="contact-label">Support Email:</strong>
+                <a href="mailto:plankmaster.support@gmail.com" class="contact-link">plankmaster.support@gmail.com</a>
+              </div>
+            </li>
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">🌐</span>
+              <div>
+                <strong class="contact-label">Website:</strong>
+                <a href="https://plankmaster.github.io/home/" class="contact-link" target="_blank" rel="noopener">https://plankmaster.github.io/home/</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="index.html"><span class="lang-vi">Trang Chủ</span><span class="lang-en">Home</span></a>
+        <span class="bullet">•</span>
+        <a href="privacy.html"><span class="lang-vi">Quyền Riêng Tư</span><span class="lang-en">Privacy Policy</span></a>
+        <span class="bullet">•</span>
+        <a href="terms.html"><span class="lang-vi">Điều Khoản Dịch Vụ</span><span class="lang-en">Terms of Service</span></a>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:plankmaster.support@gmail.com">📧 plankmaster.support@gmail.com</a>
+      </div>
+      <p>© 2026 Plank Master: Core & Fitness. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- THEME MANAGEMENT ---
+    function updateThemeUI(theme) {
+      const btnIcon = document.getElementById('themeBtnIcon');
+      if (btnIcon) {
+        // Dark mode shows Sun (to switch to light), Light mode shows Moon (to switch to dark)
+        btnIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      }
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('pm_theme', theme);
+      updateThemeUI(theme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    }
+
+    // Initialize Theme UI icon on page load
+    (function() {
+      const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateThemeUI(activeTheme);
+
+      // Listen to OS theme changes if user has not set an explicit override
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+          const urlParams = new URLSearchParams(window.location.search);
+          if (!urlParams.get('theme') && !localStorage.getItem('pm_theme')) {
+            setTheme(e.matches ? 'light' : 'dark');
+          }
+        });
+      }
+    })();
+
+    // --- LANGUAGE MANAGEMENT ---
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('plank_lang', lang);
+      const btnText = document.getElementById('langBtnText');
+      if (btnText) {
+        btnText.textContent = lang === 'vi' ? 'EN' : 'VI';
+      }
+    }
+
+    function toggleLanguage() {
+      const current = document.documentElement.getAttribute('data-lang') || 'vi';
+      const next = current === 'vi' ? 'en' : 'vi';
+      setLanguage(next);
+    }
+
+    // Initialize from local storage or browser preference
+    (function() {
+      const saved = localStorage.getItem('plank_lang');
+      if (saved) {
+        setLanguage(saved);
+      } else {
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang && userLang.toLowerCase().startsWith('vi')) {
+          setLanguage('vi');
+        } else {
+          setLanguage('en');
+        }
+      }
+    })();
+
+    // Triệt tiêu hoàn toàn tính năng Pinch-to-Zoom & Double-Tap Zoom trên iOS Safari (iOS 10+)
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('gesturechange', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('gestureend', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        if (!e.target.closest('a, button, input, select')) {
+          e.preventDefault();
+        }
+      }
+      lastTouchEnd = now;
+    }, { passive: false });
+  </script>
+</body>
+</html>

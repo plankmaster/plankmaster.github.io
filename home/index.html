@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="vi" data-lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const themeParam = urlParams.get('theme');
+      const savedTheme = localStorage.getItem('pm_theme');
+      const systemPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+
+      let targetTheme = 'dark';
+      if (themeParam === 'light' || themeParam === 'dark') {
+        targetTheme = themeParam;
+        localStorage.setItem('pm_theme', themeParam);
+      } else if (savedTheme === 'light' || savedTheme === 'dark') {
+        targetTheme = savedTheme;
+      } else if (systemPrefersLight) {
+        targetTheme = 'light';
+      }
+
+      document.documentElement.setAttribute('data-theme', targetTheme);
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Plank Master: Core & Fitness Timer | Trang Chủ & Pháp Lý</title>
+  <meta name="description" content="Plank Master: Ứng dụng đếm giờ và hỗ trợ tập luyện gồng cơ lõi (Plank) hàng đầu cho Android & iOS. 100% bảo mật offline-first, phản hồi siêu tốc 0ms.">
+  <link rel="icon" type="image/png" href="assets/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root,
+    html[data-theme="dark"] {
+      --bg-page: #0B1120;
+      --bg-radial: radial-gradient(circle 500px at 50% -100px, rgba(6, 182, 212, 0.16) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 70%);
+      --card-bg: #131D33;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(6, 182, 212, 0.4);
+      --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      --item-bg: rgba(255, 255, 255, 0.02);
+      --item-border: rgba(255, 255, 255, 0.04);
+      --header-bg: #0B1120;
+      --header-border: rgba(255, 255, 255, 0.08);
+      --footer-border: rgba(255, 255, 255, 0.08);
+
+      --cyan: #06B6D4;
+      --cyan-glow: rgba(6, 182, 212, 0.2);
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.15);
+      --amber: #F59E0B;
+      --amber-glow: rgba(245, 158, 11, 0.15);
+      --amber-border: rgba(245, 158, 11, 0.3);
+
+      --text-title: #FFFFFF;
+      --text-body: #94A3B8;
+      --text-sub: #64748B;
+      --text-muted: #94A3B8;
+      --btn-bg: rgba(255, 255, 255, 0.05);
+      --btn-border: rgba(255, 255, 255, 0.08);
+      --btn-hover: rgba(255, 255, 255, 0.1);
+    }
+
+    html[data-theme="light"] {
+      --bg-page: #F8FAFC; /* Slate 50 anti-glare */
+      --bg-radial: none; /* Tắt phát sáng mờ */
+      --card-bg: #FFFFFF; /* Pure White card */
+      --card-border: #E2E8F0; /* Slate 200 */
+      --card-border-hover: rgba(8, 145, 178, 0.35);
+      --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+      --item-bg: #F8FAFC;
+      --item-border: #E2E8F0;
+      --header-bg: #FFFFFF;
+      --header-border: #E2E8F0;
+      --footer-border: #E2E8F0;
+
+      /* Accent Colors */
+      --cyan: #0891B2; /* Deep Oceanic Teal (WCAG AAA) */
+      --cyan-glow: rgba(8, 145, 178, 0.1);
+      --emerald: #059669; /* Rich Emerald */
+      --emerald-glow: rgba(5, 150, 105, 0.1);
+      --amber: #D97706; /* Rich Amber */
+      --amber-glow: rgba(217, 119, 6, 0.12);
+      --amber-border: rgba(217, 119, 6, 0.25);
+
+      /* Typography */
+      --text-title: #0F172A; /* Slate 900 */
+      --text-body: #475569; /* Slate 600 dịu mắt khi đọc lâu */
+      --text-sub: #64748B;
+      --text-muted: #64748B;
+      --btn-bg: #F1F5F9;
+      --btn-border: #E2E8F0;
+      --btn-hover: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
+
+    a, p, span, li, h1, h2, h3 {
+      overflow-wrap: break-word;
+    }
+
+    a {
+      word-break: break-all;
+      overflow-wrap: anywhere;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      background-image: var(--bg-radial);
+      background-repeat: no-repeat;
+      color: var(--text-body);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header - Solid background so scrolled content does not bleed through */
+    header {
+      border-bottom: 1px solid var(--header-border);
+      background: var(--header-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-img {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 4px 16px var(--cyan-glow);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      color: var(--text-title);
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 10px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--cyan);
+      background: var(--btn-bg);
+    }
+
+    .theme-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--text-title);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .theme-btn:hover {
+      background: var(--btn-hover);
+      border-color: var(--cyan);
+      transform: scale(1.08);
+    }
+
+    .lang-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--text-title);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      background: var(--btn-hover);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--cyan-glow);
+      border: 1px solid var(--cyan-border);
+      color: var(--cyan);
+      margin-bottom: 24px;
+    }
+
+    .hero-icon-wrap {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .hero-icon {
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      border: 2px solid var(--card-border);
+      box-shadow: 0 12px 36px var(--cyan-glow);
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #FFFFFF 20%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    html[data-theme="light"] .hero-title {
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: initial;
+      color: var(--text-title);
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    html[data-theme="light"] .hero-title span {
+      background: linear-gradient(135deg, #0891B2 0%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-body);
+      max-width: 620px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    /* Action Buttons */
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--cyan) 0%, #0891B2 100%);
+      color: #04101A;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 6px 20px var(--cyan-glow);
+      transition: all 0.2s;
+    }
+
+    html[data-theme="light"] .btn-primary {
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px var(--cyan-glow);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-title);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--card-border-hover);
+      background: var(--btn-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Legal Links Quick Cards */
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+
+    .legal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--card-shadow);
+      transition: all 0.25s, background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .legal-card:hover {
+      border-color: var(--card-border-hover);
+      transform: translateY(-4px);
+    }
+
+    .legal-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .legal-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .legal-icon.privacy {
+      background: var(--emerald-glow);
+      border: 1px solid var(--emerald-border);
+    }
+
+    .legal-icon.terms {
+      background: var(--amber-glow);
+      border: 1px solid var(--amber-border);
+    }
+
+    .legal-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-title);
+    }
+
+    .legal-card-badge {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .legal-card-desc {
+      color: var(--text-body);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .legal-card-cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--cyan);
+    }
+
+    /* Pillars */
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--text-title);
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-body);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .pillar-card {
+      background: var(--item-bg);
+      border: 1px solid var(--item-border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.2s, background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .pillar-card:hover {
+      background: var(--card-bg);
+      border-color: var(--cyan);
+    }
+
+    .pillar-icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    .pillar-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--text-title);
+    }
+
+    .pillar-desc {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--footer-border);
+      padding: 36px 0;
+      margin-top: auto;
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-contact {
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+    }
+
+    .footer-contact a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Language Switching Visibility */
+    [data-lang="vi"] .lang-en,
+    [data-lang="en"] .lang-vi {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 16px;
+        max-width: 100%;
+      }
+      .features-grid, .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-wrapper {
+        height: 58px;
+        padding: 0 4px;
+      }
+      .brand {
+        gap: 8px;
+      }
+      .brand-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+      }
+      .brand-subtitle {
+        display: none !important;
+      }
+      .nav-controls {
+        gap: 6px;
+      }
+      .theme-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.92rem;
+      }
+      .nav-link {
+        display: none !important;
+      }
+      .lang-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+      }
+      .hero {
+        padding: 24px 0 16px;
+      }
+      .hero-badge {
+        font-size: 0.72rem;
+        padding: 4px 12px;
+        margin-bottom: 16px;
+      }
+      .hero-icon-wrap {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 16px;
+      }
+      .hero-title {
+        font-size: 1.7rem;
+        line-height: 1.25;
+      }
+      .hero-desc {
+        font-size: 0.92rem;
+        margin-bottom: 24px;
+      }
+      .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 36px;
+      }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+      }
+      .footer-links {
+        gap: 8px 14px;
+        font-size: 0.82rem;
+      }
+      .footer-links .bullet {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/icon-512.png" alt="Plank Master Logo" class="brand-img">
+        <div>
+          <div class="brand-title">Plank Master</div>
+          <div class="brand-subtitle">Core & Fitness Timer</div>
+        </div>
+      </a>
+
+      <div class="nav-controls">
+        <a href="privacy.html" class="nav-link">
+          <span class="lang-vi">Quyền Riêng Tư</span>
+          <span class="lang-en">Privacy</span>
+        </a>
+        <a href="terms.html" class="nav-link">
+          <span class="lang-vi">Điều Khoản</span>
+          <span class="lang-en">Terms</span>
+        </a>
+        <button class="theme-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối" aria-label="Toggle theme">
+          <span id="themeBtnIcon">☀️</span>
+        </button>
+        <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">
+          🌐 <span id="langBtnText">EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="lang-vi">🚀 Bản Dựng Chính Thức iOS & Android</span>
+        <span class="lang-en">🚀 Official iOS & Android Release</span>
+      </div>
+
+      <div class="hero-icon-wrap">
+        <img src="assets/icon-512.png" alt="Plank Master Icon" class="hero-icon">
+      </div>
+
+      <h1 class="hero-title">
+        Plank Master: <br>
+        <span>
+          <span class="lang-vi">Đếm Giờ & Huấn Luyện Thể Lực</span>
+          <span class="lang-en">Core & Fitness Timer</span>
+        </span>
+      </h1>
+
+      <p class="hero-desc">
+        <span class="lang-vi">
+          Ứng dụng bấm giờ thể thao đẳng cấp dành riêng cho bài tập Plank & rèn luyện cơ lõi. Thiết kế chuẩn thi đấu Stadium Track, phản hồi âm thanh 0ms, kiến trúc 100% bảo mật offline.
+        </span>
+        <span class="lang-en">
+          The ultimate isometric core workout timer and AI fitness companion. Stadium Track landscape HUD, zero-latency countdown cues, and 100% offline-first local security.
+        </span>
+      </p>
+
+      <div class="hero-actions">
+        <a href="privacy.html" class="btn-primary">
+          <span>🛡️</span>
+          <span class="lang-vi">Chính Sách Quyền Riêng Tư</span>
+          <span class="lang-en">Privacy Policy</span>
+        </a>
+        <a href="terms.html" class="btn-secondary">
+          <span>📄</span>
+          <span class="lang-vi">Điều Khoản Dịch Vụ</span>
+          <span class="lang-en">Terms of Service</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- LEGAL CARDS -->
+    <section class="legal-grid">
+      <a href="privacy.html" class="legal-card">
+        <div>
+          <div class="legal-card-header">
+            <div class="legal-icon privacy">🛡️</div>
+            <div>
+              <div class="legal-card-title">
+                <span class="lang-vi">Chính Sách Quyền Riêng Tư</span>
+                <span class="lang-en">Privacy Policy</span>
+              </div>
+              <div class="legal-card-badge">GDPR & Store Ready</div>
+            </div>
+          </div>
+          <p class="legal-card-desc">
+            <span class="lang-vi">Cam kết 100% lưu trữ dữ liệu tại máy, minh bạch quyền thiết bị và tuyệt đối không chia sẻ dữ liệu cho mạng lưới quảng cáo.</span>
+            <span class="lang-en">100% local storage commitment, full device permission transparency, and strict zero-tracking architecture.</span>
+          </p>
+        </div>
+        <div class="legal-card-cta">
+          <span class="lang-vi">Đọc văn bản chi tiết →</span>
+          <span class="lang-en">Read full policy →</span>
+        </div>
+      </a>
+
+      <a href="terms.html" class="legal-card">
+        <div>
+          <div class="legal-card-header">
+            <div class="legal-icon terms">📄</div>
+            <div>
+              <div class="legal-card-title">
+                <span class="lang-vi">Điều Khoản Dịch Vụ</span>
+                <span class="lang-en">Terms of Service</span>
+              </div>
+              <div class="legal-card-badge">EULA Standard</div>
+            </div>
+          </div>
+          <p class="legal-card-desc">
+            <span class="lang-vi">Quy định cấp phép sử dụng cá nhân, điều khoản gói nâng cấp VIP/Pro và khuyến cáo an toàn sức khỏe y tế khi gồng plank.</span>
+            <span class="lang-en">Personal license grant, VIP/Pro upgrade terms, and crucial health safety advisories for isometric core workouts.</span>
+          </p>
+        </div>
+        <div class="legal-card-cta">
+          <span class="lang-vi">Đọc văn bản chi tiết →</span>
+          <span class="lang-en">Read full terms →</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- PILLARS -->
+    <section>
+      <h2 class="section-title">
+        <span class="lang-vi">4 Trụ Cột Chất Lượng & Cam Kết</span>
+        <span class="lang-en">4 Core Pillars & Commitments</span>
+      </h2>
+      <p class="section-sub">
+        <span class="lang-vi">Tiêu chuẩn công nghệ khắt khe mang lại trải nghiệm luyện tập hoàn hảo</span>
+        <span class="lang-en">High engineering standards delivering an uncompromising workout experience</span>
+      </p>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon">🔒</div>
+          <div class="pillar-title">
+            <span class="lang-vi">Bảo Mật Cục Bộ</span>
+            <span class="lang-en">Local Privacy</span>
+          </div>
+          <div class="pillar-desc">
+            <span class="lang-vi">Dữ liệu cân nặng, thời gian gồng plank lưu 100% tại máy.</span>
+            <span class="lang-en">Weight and workout logs stored strictly on your local device.</span>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">⚡</div>
+          <div class="pillar-title">
+            <span class="lang-vi">Độ Trễ Siêu Thấp</span>
+            <span class="lang-en">Ultra-Low Latency</span>
+          </div>
+          <div class="pillar-desc">
+            <span class="lang-vi">Phản hồi âm thanh và nhịp đếm tức thì 0ms, không làm trễ nhịp gồng.</span>
+            <span class="lang-en">Instant 0ms audio and tactile cues to keep you in sync.</span>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">🚫</div>
+          <div class="pillar-title">
+            <span class="lang-vi">Không Theo Dõi</span>
+            <span class="lang-en">Zero Tracking</span>
+          </div>
+          <div class="pillar-desc">
+            <span class="lang-vi">Cam kết không thu thập dữ liệu nhạy cảm và không bán dữ liệu.</span>
+            <span class="lang-en">Zero third-party trackers and no user data sales guarantee.</span>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">🤖</div>
+          <div class="pillar-title">
+            <span class="lang-vi">AI Trực Tiếp</span>
+            <span class="lang-en">Direct Gemini AI</span>
+          </div>
+          <div class="pillar-desc">
+            <span class="lang-vi">Gọi API Google Gemini bảo mật trực tiếp từ thiết bị của bạn.</span>
+            <span class="lang-en">Direct encrypted calls to Google Gemini API from your device.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="index.html"><span class="lang-vi">Trang Chủ</span><span class="lang-en">Home</span></a>
+        <span class="bullet">•</span>
+        <a href="privacy.html"><span class="lang-vi">Quyền Riêng Tư</span><span class="lang-en">Privacy Policy</span></a>
+        <span class="bullet">•</span>
+        <a href="terms.html"><span class="lang-vi">Điều Khoản Dịch Vụ</span><span class="lang-en">Terms of Service</span></a>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:plankmaster.support@gmail.com">📧 plankmaster.support@gmail.com</a>
+      </div>
+      <p>© 2026 Plank Master: Core & Fitness. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- THEME MANAGEMENT ---
+    function updateThemeUI(theme) {
+      const btnIcon = document.getElementById('themeBtnIcon');
+      if (btnIcon) {
+        // Dark mode shows Sun (to switch to light), Light mode shows Moon (to switch to dark)
+        btnIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      }
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('pm_theme', theme);
+      updateThemeUI(theme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    }
+
+    // Initialize Theme UI icon on page load
+    (function() {
+      const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateThemeUI(activeTheme);
+
+      // Listen to OS theme changes if user has not set an explicit override
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+          const urlParams = new URLSearchParams(window.location.search);
+          if (!urlParams.get('theme') && !localStorage.getItem('pm_theme')) {
+            setTheme(e.matches ? 'light' : 'dark');
+          }
+        });
+      }
+    })();
+
+    // --- LANGUAGE MANAGEMENT ---
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('plank_lang', lang);
+      const btnText = document.getElementById('langBtnText');
+      if (btnText) {
+        btnText.textContent = lang === 'vi' ? 'EN' : 'VI';
+      }
+    }
+
+    function toggleLanguage() {
+      const current = document.documentElement.getAttribute('data-lang') || 'vi';
+      const next = current === 'vi' ? 'en' : 'vi';
+      setLanguage(next);
+    }
+
+    (function() {
+      const saved = localStorage.getItem('plank_lang');
+      if (saved) {
+        setLanguage(saved);
+      } else {
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang && userLang.toLowerCase().startsWith('vi')) {
+          setLanguage('vi');
+        } else {
+          setLanguage('en');
+        }
+      }
+    })();
+
+    // Triệt tiêu hoàn toàn tính năng Pinch-to-Zoom & Double-Tap Zoom trên iOS Safari (iOS 10+)
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('gesturechange', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('gestureend', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        if (!e.target.closest('a, button, input, select')) {
+          e.preventDefault();
+        }
+      }
+      lastTouchEnd = now;
+    }, { passive: false });
+  </script>
+</body>
+</html>

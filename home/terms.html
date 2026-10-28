@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="vi" data-lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const themeParam = urlParams.get('theme');
+      const savedTheme = localStorage.getItem('pm_theme');
+      const systemPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+
+      let targetTheme = 'dark';
+      if (themeParam === 'light' || themeParam === 'dark') {
+        targetTheme = themeParam;
+        localStorage.setItem('pm_theme', themeParam);
+      } else if (savedTheme === 'light' || savedTheme === 'dark') {
+        targetTheme = savedTheme;
+      } else if (systemPrefersLight) {
+        targetTheme = 'light';
+      }
+
+      document.documentElement.setAttribute('data-theme', targetTheme);
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Điều Khoản Dịch Vụ | Plank Master: Core & Fitness</title>
+  <meta name="description" content="Điều khoản dịch vụ, thỏa thuận người dùng (EULA) và khuyến cáo an toàn sức khỏe y tế của ứng dụng Plank Master - Tuân thủ tiêu chuẩn Apple App Store và Google Play.">
+  <link rel="icon" type="image/png" href="assets/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root,
+    html[data-theme="dark"] {
+      --bg-page: #0B1120;
+      --bg-radial: radial-gradient(circle 400px at 50% -80px, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+      --card-bg: #131D33;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(245, 158, 11, 0.3);
+      --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      --item-bg: rgba(255, 255, 255, 0.02);
+      --item-border: rgba(255, 255, 255, 0.04);
+      --header-bg: #0B1120;
+      --header-border: rgba(255, 255, 255, 0.08);
+      --footer-border: rgba(255, 255, 255, 0.08);
+
+      --cyan: #06B6D4;
+      --cyan-glow: rgba(6, 182, 212, 0.15);
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --amber-glow: rgba(245, 158, 11, 0.15);
+      --amber-border: rgba(245, 158, 11, 0.3);
+
+      --text-title: #FFFFFF;
+      --text-body: #94A3B8;
+      --text-sub: #64748B;
+      --text-muted: #94A3B8;
+      --btn-bg: rgba(255, 255, 255, 0.05);
+      --btn-border: rgba(255, 255, 255, 0.08);
+      --btn-hover: rgba(255, 255, 255, 0.1);
+
+      --medical-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+      --medical-border: rgba(239, 68, 68, 0.3);
+      --medical-icon-bg: rgba(239, 68, 68, 0.15);
+      --medical-title: #F87171;
+    }
+
+    html[data-theme="light"] {
+      --bg-page: #F8FAFC; /* Slate 50 anti-glare */
+      --bg-radial: none; /* Tắt phát sáng mờ */
+      --card-bg: #FFFFFF; /* Pure White card */
+      --card-border: #E2E8F0; /* Slate 200 */
+      --card-border-hover: rgba(217, 119, 6, 0.35);
+      --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+      --item-bg: #F8FAFC;
+      --item-border: #E2E8F0;
+      --header-bg: #FFFFFF;
+      --header-border: #E2E8F0;
+      --footer-border: #E2E8F0;
+
+      /* Accent Colors */
+      --cyan: #0891B2; /* Deep Oceanic Teal (WCAG AAA) */
+      --cyan-glow: rgba(8, 145, 178, 0.1);
+      --emerald: #059669; /* Rich Emerald */
+      --amber: #D97706; /* Rich Amber */
+      --amber-glow: rgba(217, 119, 6, 0.12);
+      --amber-border: rgba(217, 119, 6, 0.25);
+
+      /* Typography: Không dùng #000 đen tuyền */
+      --text-title: #0F172A; /* Slate 900 */
+      --text-body: #475569; /* Slate 600 dịu mắt khi đọc lâu */
+      --text-sub: #64748B;
+      --text-muted: #64748B;
+      --btn-bg: #F1F5F9;
+      --btn-border: #E2E8F0;
+      --btn-hover: #E2E8F0;
+
+      --medical-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(217, 119, 6, 0.04) 100%);
+      --medical-border: rgba(239, 68, 68, 0.22);
+      --medical-icon-bg: rgba(239, 68, 68, 0.1);
+      --medical-title: #DC2626;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
+
+    a, p, span, li, h1, h2, h3 {
+      overflow-wrap: break-word;
+    }
+
+    a {
+      word-break: break-all;
+      overflow-wrap: anywhere;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      background-image: var(--bg-radial);
+      background-repeat: no-repeat;
+      color: var(--text-body);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header - Solid background so scrolled content does not bleed through */
+    header {
+      border-bottom: 1px solid var(--header-border);
+      background: var(--header-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 4px 12px var(--amber-glow);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      color: var(--text-title);
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--amber);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .theme-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--text-title);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .theme-btn:hover {
+      background: var(--btn-hover);
+      border-color: var(--amber);
+      transform: scale(1.08);
+    }
+
+    .lang-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--text-title);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      background: var(--btn-hover);
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--amber);
+      background: var(--btn-bg);
+    }
+
+    .nav-link.active {
+      color: var(--amber);
+      background: var(--amber-glow);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 44px 0 28px;
+      text-align: center;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--amber-glow);
+      border: 1px solid var(--amber-border);
+      color: var(--amber);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 30%, #F59E0B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    html[data-theme="light"] .hero-title {
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: initial;
+      color: var(--text-title);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Medical Alert Card */
+    .medical-card {
+      background: var(--medical-bg);
+      border: 1px solid var(--medical-border);
+      border-radius: 20px;
+      padding: 24px;
+      margin: 28px 0;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .medical-icon {
+      font-size: 1.8rem;
+      background: var(--medical-icon-bg);
+      border: 1px solid var(--medical-border);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .medical-text h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--medical-title);
+      margin-bottom: 6px;
+    }
+
+    .medical-text p {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* Document Body */
+    .doc-content {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 36px 32px;
+      margin-bottom: 48px;
+      box-shadow: var(--card-shadow);
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section {
+      margin-bottom: 34px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-title);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--amber);
+      background: var(--amber-glow);
+      border: 1px solid var(--amber-border);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .section p {
+      color: var(--text-body);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .bullet-list {
+      list-style: none;
+      margin: 14px 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .bullet-item {
+      display: flex;
+      gap: 12px;
+      background: var(--item-bg);
+      border: 1px solid var(--item-border);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      color: var(--text-body);
+      align-items: flex-start;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .bullet-item > div {
+      min-width: 0;
+      flex: 1;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .bullet-item strong {
+      color: var(--text-title);
+    }
+
+    .bullet-icon {
+      color: var(--amber);
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .contact-card .contact-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-title);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .contact-card .contact-link {
+      color: var(--amber);
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--footer-border);
+      padding: 36px 0;
+      margin-top: auto;
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--amber);
+    }
+
+    .footer-contact {
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+    }
+
+    .footer-contact a {
+      color: var(--amber);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Language Switching Visibility */
+    [data-lang="vi"] .lang-en,
+    [data-lang="en"] .lang-vi {
+      display: none !important;
+    }
+
+    .mobile-break {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 16px;
+        max-width: 100%;
+      }
+      .mobile-break {
+        display: inline;
+      }
+      .nav-wrapper {
+        height: 58px;
+        padding: 0 4px;
+      }
+      .brand {
+        gap: 8px;
+      }
+      .brand-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+      }
+      .brand-subtitle {
+        display: none !important;
+      }
+      .nav-controls {
+        gap: 6px;
+      }
+      .theme-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.92rem;
+      }
+      .nav-link-desktop {
+        display: none !important;
+      }
+      .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: var(--btn-bg);
+      }
+      .lang-btn {
+        padding: 5px 9px;
+        font-size: 0.75rem;
+      }
+      .hero {
+        padding: 24px 0 16px;
+      }
+      .hero-title {
+        font-size: 1.6rem;
+        line-height: 1.25;
+      }
+      .doc-content {
+        padding: 20px 16px;
+      }
+      .medical-card {
+        flex-direction: column;
+        padding: 18px;
+      }
+      .footer-links {
+        gap: 8px 14px;
+        font-size: 0.82rem;
+      }
+      .footer-links .bullet {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand">
+        <img src="assets/icon-512.png" alt="Plank Master Logo" class="brand-img">
+        <div>
+          <div class="brand-title">Plank Master</div>
+          <div class="brand-subtitle">Core & Fitness Timer</div>
+        </div>
+      </a>
+
+      <div class="nav-controls">
+        <a href="privacy.html" class="nav-link">
+          <span class="lang-vi">🛡️ Riêng Tư</span>
+          <span class="lang-en">🛡️ Privacy</span>
+        </a>
+        <a href="terms.html" class="nav-link active nav-link-desktop">
+          <span class="lang-vi">Điều Khoản</span>
+          <span class="lang-en">Terms</span>
+        </a>
+        <button class="theme-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối" aria-label="Toggle theme">
+          <span id="themeBtnIcon">☀️</span>
+        </button>
+        <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">
+          🌐 <span id="langBtnText">EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    <div class="hero">
+      <div class="badge-pill">
+        <span class="lang-vi">⚖️ Thỏa Thuận Người Dùng & EULA Chuẩn Store</span>
+        <span class="lang-en">⚖️ Store Standard User Agreement & EULA</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="lang-vi">Điều Khoản<br class="mobile-break"> <span style="white-space: nowrap;">Dịch Vụ</span></span>
+        <span class="lang-en">Terms of Service</span>
+      </h1>
+      <div class="hero-meta">
+        <span>📅 <span class="lang-vi">Hiệu lực: Tháng 10, 2026</span><span class="lang-en">Effective: October 2026</span></span>
+      </div>
+    </div>
+
+    <!-- MANDATORY HEALTH & MEDICAL WARNING -->
+    <div class="medical-card">
+      <div class="medical-icon">🩺</div>
+      <div class="medical-text">
+        <h3 class="lang-vi">Khuyến Cáo An Toàn Sức Khỏe & Miễn Trừ Y Tế Quan Trọng</h3>
+        <h3 class="lang-en">Crucial Health & Medical Disclaimer</h3>
+        <p class="lang-vi">
+          Plank Master là ứng dụng đếm giờ hỗ trợ rèn luyện thể chất, <strong>KHÔNG PHẢI</strong> là thiết bị y tế hoặc lời khuyên chẩn đoán y khoa. Bài tập plank tạo áp lực lớn lên cơ hoành, tim mạch và cột sống. Nếu bạn có tiền sử bệnh tim mạch, huyết áp cao, thoát vị đĩa đệm hoặc đang mang thai, bạn <strong>bắt buộc phải tham khảo ý kiến bác sĩ</strong> trước khi tập. Hãy dừng tập ngay khi có dấu hiệu chóng mặt, khó thở hoặc đau nhói.
+        </p>
+        <p class="lang-en">
+          Plank Master is a sports timer and training assistant, <strong>NOT</strong> a certified medical device or a substitute for professional medical diagnosis. Isometric plank training creates significant intra-abdominal, spinal, and cardiovascular strain. Consult a qualified doctor before exercising if you have cardiovascular conditions, spinal issues, or pregnancy. Cease exercise immediately if you experience sharp pain or dizziness.
+        </p>
+      </div>
+    </div>
+
+    <!-- DOCUMENT CONTENT -->
+    <article class="doc-content">
+
+      <!-- SECTION 1 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">01</span>
+          <span class="lang-vi">Cấp Quyền Sử Dụng Cá Nhân (License Grant)</span>
+          <span class="lang-en">License Grant & Permitted Usage</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Plank Master cấp cho bạn giấy phép cá nhân, phi độc quyền, không thể chuyển nhượng và có thể thu hồi để cài đặt và sử dụng ứng dụng trên các thiết bị di động tương thích (iOS / Android) cho mục đích theo dõi rèn luyện thể chất phi thương mại.
+          </p>
+          <p>
+            Bạn không được phép dịch ngược mã nguồn, sao chép tài nguyên đồ họa, sửa đổi giao diện hoặc phân phối lại các thành phần của ứng dụng dưới bất kỳ hình thức nào khi chưa có sự đồng ý bằng văn bản của chúng tôi.
+          </p>
+        </div>
+        <div class="lang-en">
+          <p>
+            Plank Master grants you a personal, non-exclusive, non-transferable, revocable license to install and utilize the application on compatible mobile operating systems (iOS / Android) strictly for non-commercial personal fitness and training.
+          </p>
+          <p>
+            You may not reverse-engineer, decompile, extract sound packs, copy proprietary UI graphics, or redistribute application assets without explicit prior written authorization.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section class="section" id="refund">
+        <h2 class="section-title">
+          <span class="section-num">02</span>
+          <span class="lang-vi">Gói Nâng Cấp Premium, Thanh Toán & Chính Sách Hoàn Tiền</span>
+          <span class="lang-en">Premium Membership, Billing & Refund Policy</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Ứng dụng có thể cung cấp các gói nâng cấp cao cấp (Gói Premium Lifetime hoặc Đăng ký định kỳ) mở khóa các đặc quyền: mở khóa toàn bộ Theme & Khung viền của giao diện đồng hồ ngang, trợ lý huấn luyện viên AI phân tích thể trạng & thiết kế giáo án chuyên sâu, trọn bộ giọng nói huấn luyện viên 3 miền, bộ biểu tượng ứng dụng và trải nghiệm loại bỏ hoàn toàn quảng cáo.
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">💳</span>
+              <div><strong>Thanh toán Store:</strong> Mọi giao dịch được xử lý an toàn 100% qua cổng Apple In-App Purchase hoặc Google Play Billing theo quy chế của Store. Chúng tôi không lưu giữ thông tin thẻ thanh toán của bạn.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔄</span>
+              <div><strong>Khôi phục gói mua (Restore Purchase):</strong> Bạn có thể khôi phục lại gói Premium của mình bất kỳ lúc nào trên thiết bị mới chỉ bằng nút "Khôi Phục Giao Dịch" trong Cài Đặt.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💵</span>
+              <div>
+                <strong>Chính sách & Quy trình hoàn tiền:</strong><br>
+                Toàn bộ các khoản thanh toán được xử lý trực tiếp bởi Store nền tảng (Apple hoặc Google). Việc xét duyệt và hoàn tiền tuân thủ nghiêm ngặt chính sách chính thức của Store tương ứng:
+                <ul style="margin-top: 6px; margin-left: 18px; list-style-type: disc;">
+                  <li><strong>Đối với iOS (Apple App Store):</strong> Yêu cầu hoàn tiền được gửi trực tiếp cho Apple qua trang web <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">reportaproblem.apple.com</a> bằng tài khoản Apple ID của bạn. Apple có toàn quyền quyết định xét duyệt hoàn tiền theo chính sách App Store.</li>
+                  <li><strong>Đối với Android (Google Play Store):</strong> Trong vòng 48 giờ sau khi thực hiện giao dịch, bạn có thể yêu cầu hoàn tiền trực tiếp qua <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">Trung tâm trợ giúp Google Play</a> hoặc gửi mã đơn hàng GPA cho chúng tôi qua email để được hỗ trợ hướng dẫn.</li>
+                  <li><strong>Người dùng tại Liên minh Châu Âu (EU):</strong> Tuân thủ quyền rút lui / hủy bỏ theo luật định trong vòng 14 ngày (Statutory Right of Withdrawal) do Apple / Google điều phối.</li>
+                </ul>
+              </div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">⚡</span>
+              <div><strong>Gói Trải Nghiệm Tạm Thời (Plus):</strong> Ngoài gói Premium, ứng dụng có thể cung cấp gói Plus tạm thời thông qua hình thức xem video quảng cáo nhận thưởng (Rewarded Ads). Gói Plus cho phép người dùng hạn chế một số quảng cáo và mở khóa một vài tính năng trong thời hạn 15 phút kể từ thời điểm nhận thưởng. Quyền lợi này mang tính chất trải nghiệm tạm thời, không tương đương với gói Premium và không có giá trị quy đổi thành tiền mặt.</div>
+            </li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <p>
+            The application may offer premium upgrades (Premium Lifetime purchase or recurring subscriptions) unlocking exclusive capabilities: all landscape HUD themes and stadium frames, unlimited Gemini AI Coach for deep core fitness analysis & tailored plan generation, 3-region coach voice audio packs, premium app icon sets, and an entirely ad-free workout experience.
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">💳</span>
+              <div><strong>Store Billing:</strong> All transactions are processed securely through Apple In-App Purchase or Google Play Billing conforming strictly with platform rules. We never store your payment card numbers.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔄</span>
+              <div><strong>Restore Purchases:</strong> You may restore your Premium purchases at any time across new devices associated with the same Apple ID or Google Play Account.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">💵</span>
+              <div>
+                <strong>Refund Policy & Procedures:</strong><br>
+                All billing is executed directly by the hosting Store platform (Apple or Google). All refund evaluations and disbursements adhere to the respective platform policies:
+                <ul style="margin-top: 6px; margin-left: 18px; list-style-type: disc;">
+                  <li><strong>iOS (Apple App Store):</strong> You may request refunds directly from Apple via <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">reportaproblem.apple.com</a> using your Apple ID. Apple maintains sole discretion over refund adjudications pursuant to App Store terms.</li>
+                  <li><strong>Android (Google Play Store):</strong> Within 48 hours of purchase, refund requests can be submitted online via <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">Google Play Help</a>.</li>
+                  <li><strong>European Union (EU) Customers:</strong> Subject to statutory 14-day right of withdrawal handled directly through Apple / Google billing channels.</li>
+                </ul>
+              </div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">⚡</span>
+              <div><strong>Temporary Experience Pass (Plus):</strong> In addition to the Premium package, the application may provide a temporary Plus pass by watching rewarded video ads. The Plus pass allows users to limit some advertisements and unlock select features for a duration of 15 minutes from the time the reward is granted. This pass is strictly a temporary preview, is not equivalent to the Premium package, and has no cash redemption value.</div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">03</span>
+          <span class="lang-vi">Quyền Sở Hữu Trí Tuệ (Intellectual Property)</span>
+          <span class="lang-en">Intellectual Property Rights</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Toàn bộ thiết kế giao diện đồng hồ Stadium Track, gói âm thanh giọng nói huấn luyện viên 3 miền, hình ảnh cúp vinh danh, logo nhận diện thương hiệu và thuật toán ước lượng calo tiêu hao đều là tài sản sở hữu trí tuệ độc quyền của Plank Master.
+          </p>
+        </div>
+        <div class="lang-en">
+          <p>
+            All custom UI styling, Stadium Track HUD concepts, 3-region coach voice audio recordings, trophy illustrations, branding logos, and workout calorie calculations are proprietary intellectual assets owned solely by Plank Master.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 4 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">04</span>
+          <span class="lang-vi">Giới Hạn Trách Nhiệm Pháp Lý & Lời Khuyên AI</span>
+          <span class="lang-en">Limitation of Liability & AI Recommendations</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Trong giới hạn tối đa được pháp luật cho phép, đội ngũ phát triển Plank Master không chịu trách nhiệm đối với bất kỳ chấn thương thể chất, tổn thất sức khỏe hoặc thiệt hại gián tiếp nào phát sinh từ việc người dùng tự luyện tập sai tư thế, tập luyện quá sức hoặc bỏ qua các cảnh báo y tế.
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">⚠️</span>
+              <div><strong>Tự chịu trách nhiệm rèn luyện:</strong> Bạn hoàn toàn chịu trách nhiệm trong việc tự đánh giá thể trạng cá nhân, thực hiện khởi động kỹ lưỡng, duy trì đúng tư thế kỹ thuật và điều chỉnh thời lượng bài tập phù hợp với sức chịu đựng của mình. Hãy dừng ngay bài tập nếu có bất kỳ dấu hiệu đau nhức bất thường, chóng mặt hay khó thở.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🤖</span>
+              <div><strong>Giới hạn trách nhiệm lời khuyên AI:</strong> Các gợi ý phân tích thể lực, ước tính tiêu hao calo và giáo án rèn luyện do Huấn Luyện Viên AI tạo ra (thông qua Google Gemini API hoặc sao chép Prompt) chỉ mang tính chất định hướng rèn luyện thể chất tham khảo. AI không phải là bác sĩ hay chuyên gia y tế và không có chức năng chẩn đoán, điều trị bệnh tật. Bạn cần lắng nghe cơ thể mình trước tiên và tự quyết định mức độ tập luyện phù hợp.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔑</span>
+              <div><strong>Khóa API cá nhân (BYOK) & Dịch vụ bên thứ ba:</strong> Khi bạn nhập API Key cá nhân để kết nối trực tiếp với nhà cung cấp AI (Google Gemini), bạn đồng thời chịu sự ràng buộc bởi Điều khoản Dịch vụ của bên thứ ba đó. Plank Master không chịu trách nhiệm đối với tính khả dụng, tính gián đoạn hay nội dung phản hồi từ mô hình AI của bên thứ ba.</div>
+            </li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <p>
+            To the maximum extent permitted by applicable laws, Plank Master and its developers disclaim any liability for personal injuries, bodily harm, muscular strain, or indirect damages resulting from improper exercise posture, overtraining, or disregard of health advisories.
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item">
+              <span class="bullet-icon">⚠️</span>
+              <div><strong>Personal Fitness Responsibility:</strong> You assume full responsibility for assessing your physical fitness, executing proper warm-ups, maintaining correct posture, and pacing exercises to match your personal endurance limits. Cease workouts immediately if experiencing abnormal pain, dizziness, or shortness of breath.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🤖</span>
+              <div><strong>AI Recommendations Disclaimer:</strong> AI fitness analysis, routine suggestions, and calorie estimates generated by the AI Coach (via Google Gemini API or manual prompt copying) are provided strictly for general fitness reference and informational purposes only. AI is not a licensed physician or clinical physical therapist and cannot replace professional medical diagnosis. Always listen to your body and exercise at your own discretion.</div>
+            </li>
+            <li class="bullet-item">
+              <span class="bullet-icon">🔑</span>
+              <div><strong>BYOK & Third-Party AI Services:</strong> When providing your personal API Key to communicate directly with third-party AI providers (Google Gemini), you are also subject to their respective terms and policies. Plank Master assumes no responsibility for third-party AI uptime, response accuracy, or service availability.</div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION 5 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">05</span>
+          <span class="lang-vi">Điều Khoản Tiêu Chuẩn Apple (Apple EULA)</span>
+          <span class="lang-en">Apple Standard EULA Acknowledgement</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Nếu bạn tải ứng dụng từ Apple App Store, thỏa thuận này đồng thời tuân thủ Điều khoản Cấp phép Ứng dụng Tiêu chuẩn của Apple (Standard Apple Licensed Application End User License Agreement). Bạn có thể tham khảo chi tiết tại <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" style="color: var(--amber);">Apple Standard EULA</a>.
+          </p>
+        </div>
+        <div class="lang-en">
+          <p>
+            If you downloaded the application via the Apple App Store, these terms incorporate Apple's Standard Licensed Application End User License Agreement. You can view the full agreement at <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener" style="color: var(--amber);">Apple Standard EULA</a>.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 6 -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-num">06</span>
+          <span class="lang-vi">Liên Hệ Hỗ Trợ & Giải Quyết Khiếu Nại</span>
+          <span class="lang-en">Customer Support & Inquiries</span>
+        </h2>
+        <div class="lang-vi">
+          <p>
+            Nếu bạn có bất kỳ câu hỏi nào về Điều Khoản Dịch Vụ, khôi phục gói Premium hoặc cần hỗ trợ kỹ thuật:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">📧</span>
+              <div>
+                <strong class="contact-label">Email Hỗ Trợ:</strong>
+                <a href="mailto:plankmaster.support@gmail.com" class="contact-link">plankmaster.support@gmail.com</a>
+              </div>
+            </li>
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">🌐</span>
+              <div>
+                <strong class="contact-label">Website:</strong>
+                <a href="https://plankmaster.github.io/home/" class="contact-link" target="_blank" rel="noopener">https://plankmaster.github.io/home/</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <p>
+            If you have questions regarding these Terms, Premium restore assistance, or support requests:
+          </p>
+          <ul class="bullet-list">
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">📧</span>
+              <div>
+                <strong class="contact-label">Support Email:</strong>
+                <a href="mailto:plankmaster.support@gmail.com" class="contact-link">plankmaster.support@gmail.com</a>
+              </div>
+            </li>
+            <li class="bullet-item contact-card">
+              <span class="bullet-icon">🌐</span>
+              <div>
+                <strong class="contact-label">Website:</strong>
+                <a href="https://plankmaster.github.io/home/" class="contact-link" target="_blank" rel="noopener">https://plankmaster.github.io/home/</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="index.html"><span class="lang-vi">Trang Chủ</span><span class="lang-en">Home</span></a>
+        <span class="bullet">•</span>
+        <a href="privacy.html"><span class="lang-vi">Quyền Riêng Tư</span><span class="lang-en">Privacy Policy</span></a>
+        <span class="bullet">•</span>
+        <a href="terms.html"><span class="lang-vi">Điều Khoản Dịch Vụ</span><span class="lang-en">Terms of Service</span></a>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:plankmaster.support@gmail.com">📧 plankmaster.support@gmail.com</a>
+      </div>
+      <p>© 2026 Plank Master: Core & Fitness. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- THEME MANAGEMENT ---
+    function updateThemeUI(theme) {
+      const btnIcon = document.getElementById('themeBtnIcon');
+      if (btnIcon) {
+        // Dark mode shows Sun (to switch to light), Light mode shows Moon (to switch to dark)
+        btnIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      }
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('pm_theme', theme);
+      updateThemeUI(theme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    }
+
+    // Initialize Theme UI icon on page load
+    (function() {
+      const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateThemeUI(activeTheme);
+
+      // Listen to OS theme changes if user has not set an explicit override
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+          const urlParams = new URLSearchParams(window.location.search);
+          if (!urlParams.get('theme') && !localStorage.getItem('pm_theme')) {
+            setTheme(e.matches ? 'light' : 'dark');
+          }
+        });
+      }
+    })();
+
+    // --- LANGUAGE MANAGEMENT ---
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('plank_lang', lang);
+      const btnText = document.getElementById('langBtnText');
+      if (btnText) {
+        btnText.textContent = lang === 'vi' ? 'EN' : 'VI';
+      }
+    }
+
+    function toggleLanguage() {
+      const current = document.documentElement.getAttribute('data-lang') || 'vi';
+      const next = current === 'vi' ? 'en' : 'vi';
+      setLanguage(next);
+    }
+
+    (function() {
+      const saved = localStorage.getItem('plank_lang');
+      if (saved) {
+        setLanguage(saved);
+      } else {
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang && userLang.toLowerCase().startsWith('vi')) {
+          setLanguage('vi');
+        } else {
+          setLanguage('en');
+        }
+      }
+    })();
+
+    // Triệt tiêu hoàn toàn tính năng Pinch-to-Zoom & Double-Tap Zoom trên iOS Safari (iOS 10+)
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('gesturechange', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('gestureend', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        if (!e.target.closest('a, button, input, select')) {
+          e.preventDefault();
+        }
+      }
+      lastTouchEnd = now;
+    }, { passive: false });
+  </script>
+</body>
+</html>
